@@ -96,6 +96,9 @@ func (m *cache) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			if m.cfg.AddStatusHeader {
 				w.Header().Set(cacheHeader, cacheHitStatus)
 			}
+			if data.Status == 0 {
+				data.Status = 200
+			}
 			w.WriteHeader(data.Status)
 			_, _ = w.Write(data.Body)
 			return
